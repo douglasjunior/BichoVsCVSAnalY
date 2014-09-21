@@ -4,8 +4,6 @@ import br.edu.utfpr.cm.minerador.model.issue.Issue;
 import br.edu.utfpr.cm.minerador.model.svn.Scmlog;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
