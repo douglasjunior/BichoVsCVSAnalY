@@ -33,7 +33,10 @@ public class App {
 
     private static void connect() {
         emSvn = Persistence.createEntityManagerFactory("SVN").createEntityManager();
-        emIssues = Persistence.createEntityManagerFactory("ISSUE").createEntityManager();
+      
+
+
+	  emIssues = Persistence.createEntityManagerFactory("ISSUE").createEntityManager();
 
         try {
             emIssues.unwrap(Session.class).connection().prepareStatement(
