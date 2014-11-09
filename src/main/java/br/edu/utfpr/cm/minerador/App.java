@@ -53,7 +53,7 @@ public class App {
 
         //List<Issue> issues = emIssues.createQuery("SELECT p FROM Issue p").getResultList();
         //System.err.println(issues.size() + " issues");
-        List<Scmlog> commitMessages = emSvn.createQuery("SELECT s FROM Scmlog s").getResultList();
+        final List<Scmlog> commitMessages = emSvn.createQuery("SELECT s FROM Scmlog s").getResultList();
         System.err.println(commitMessages.size() + " commit messages");
 
         int contador = 0;
@@ -63,22 +63,22 @@ public class App {
         for (Scmlog log : commitMessages) {
             final Matcher matcher = regex.matcher(log.getMessage());
             while (matcher.find()) {
-                String group = matcher.group(); // ARIES-1234
-                Pattern regexNumber = Pattern.compile("\\d+");
-                Matcher matcherNumber = regexNumber.matcher(group);
-                if (matcherNumber.find()) {
-                    contador++;
-                    String number = matcherNumber.group();
-                    try {
-                        Issue issue = emIssues.createQuery("SELECT p FROM Issue p WHERE p.id = " + number, Issue.class).getSingleResult();
+                String issueKey = matcher.group(); // ARIES-1234
+                // TODO for Bugzilla
+                //issueId = emIssues.createQuery("SELECT p.issueId FROM IssueExtBugzilla p WHERE UPPER(p.issueKey) = " + issueKey.toUpperCase(), Integer.class).getSingleResult();
+                contador++;
+                try {
+                    Issue issue = emIssues.createQuery("SELECT p FROM Issue p WHERE p.id = ("
+                            + "SELECT p.issueId FROM IssueExtJira p WHERE UPPER(p.issueKey) = '"
+                            + issueKey.toUpperCase() + "')", Issue.class).getSingleResult();
+                    if (issue != null && issue.getId() != null) {
                         issue.addScmlog(log);
                         emIssues.merge(issue);
                         emIssues.flush();
-                    } catch (NoResultException e) {
-                        System.out.println("Log: " + log.getId() + " / Ocorrência: " + group + " / Issue: " + number + " / Não encontrado na base de dados.");
                     }
+                } catch (NoResultException e) {
+                    System.out.println("Log: " + log.getId() + " / Ocorrência: " + issueKey + " / Não encontrado na base de dados.");
                 }
-
             }
 
         }
