@@ -2,14 +2,12 @@ package br.edu.utfpr.cm.minerador;
 
 import br.edu.utfpr.cm.minerador.model.issue.Issue;
 import br.edu.utfpr.cm.minerador.model.svn.Scmlog;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import org.hibernate.Session;
 
 /**
  * Hello world!
@@ -28,27 +26,12 @@ public class App {
         connect();
 
         execute();
-
     }
 
     private static void connect() {
         emSvn = Persistence.createEntityManagerFactory("SVN").createEntityManager();
-      
 
-
-	  emIssues = Persistence.createEntityManagerFactory("ISSUE").createEntityManager();
-
-        try {
-            emIssues.unwrap(Session.class).connection().prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS `issues_scmlog` ( "
-                    + "  `id` INT NOT NULL AUTO_INCREMENT, "
-                    + "  `issue_id` INT NOT NULL, "
-                    + "  `scmlog_id` INT NOT NULL, "
-                    + "  PRIMARY KEY (`id`), "
-                    + "  UNIQUE INDEX `unq_issue_scmlog` (`issue_id` ASC, `scmlog_id` ASC));").execute();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
+        emIssues = Persistence.createEntityManagerFactory("ISSUE").createEntityManager();
     }
 
     private static void execute() {
