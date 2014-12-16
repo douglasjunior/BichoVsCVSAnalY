@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="ISSUE" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>br.edu.utfpr.cm.minerador.model.issue.RelatedTo</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.Issue</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.Comment</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.Change</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.Attachment</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.IssueExtBugzilla</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.SupportedTracker</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.Tracker</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.IssueWatcher</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.PeopleIssue</class>
-    <class>br.edu.utfpr.cm.minerador.model.issue.IssueScmlog</class>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/aries_issues?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <!-- property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/ -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-      <property name="hibernate.show_sql" value="true"/>
-    </properties>
-  </persistence-unit>
-  <persistence-unit name="SVN" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>br.edu.utfpr.cm.minerador.model.svn.PeopleSvn</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.Scmlog</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.Tag</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.TagRevision</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.File</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.FileLink</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.FileCopy</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.Branch</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.Action</class>
-    <class>br.edu.utfpr.cm.minerador.model.svn.Repository</class>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/aries_vcs?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <!-- property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/ -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-      <property name="hibernate.show_sql" value="true"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="ISSUE" transaction-type="RESOURCE_LOCAL">
+        
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>br.edu.utfpr.cm.minerador.model.issue.RelatedTo</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.Issue</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.Comment</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.Change</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.Attachment</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.IssueExtBugzilla</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.SupportedTracker</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.Tracker</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.IssueWatcher</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.PeopleIssue</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.IssueScmlog</class>
+        <class>br.edu.utfpr.cm.minerador.model.issue.IssueExtJira</class>
+        <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hadoop_issues?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.password" value="aluno"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="aluno"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <!-- property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/ -->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>-->
+            <!--<property name="hibernate.show_sql" value="true"/>-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="SVN" transaction-type="RESOURCE_LOCAL">
+        
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>br.edu.utfpr.cm.minerador.model.svn.PeopleSvn</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.Scmlog</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.Tag</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.TagRevision</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.File</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.FileLink</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.FileCopy</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.Branch</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.Action</class>
+        <class>br.edu.utfpr.cm.minerador.model.svn.Repository</class>
+        <!--<exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hadoop_vcs?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.password" value="aluno"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="aluno"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <!-- property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/ -->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+        </properties>
+    </persistence-unit>
 </persistence>
