@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -85,8 +88,8 @@ public class IssueExtBugzilla implements Serializable {
     @Column(name = "group_bugzilla")
     private String groupBugzilla;
     @Basic(optional = false)
-    @Column(name = "issue_id")
-    private int issueId;
+    @JoinColumn(name = "issue_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private Issue issue;
 
     public IssueExtBugzilla() {
     }
@@ -95,10 +98,10 @@ public class IssueExtBugzilla implements Serializable {
         this.id = id;
     }
 
-    public IssueExtBugzilla(Integer id, Date deltaTs, int issueId) {
+    public IssueExtBugzilla(Integer id, Date deltaTs, Issue issue) {
         this.id = id;
         this.deltaTs = deltaTs;
-        this.issueId = issueId;
+        this.issue = issue;
     }
 
     public Integer getId() {
@@ -317,12 +320,12 @@ public class IssueExtBugzilla implements Serializable {
         this.groupBugzilla = groupBugzilla;
     }
 
-    public int getIssueId() {
-        return issueId;
+    public Issue getIssue() {
+        return issue;
     }
 
-    public void setIssueId(int issueId) {
-        this.issueId = issueId;
+    public void setIssue(Issue issue) {
+        this.issue = issue;
     }
 
     @Override

@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -73,8 +76,8 @@ public class IssueExtJira implements Serializable {
     @Column(name = "resolution", length = 35)
     private String resolution;
     @Basic(optional = false)
-    @Column(name = "issue_id")
-    private int issueId;
+    @JoinColumn(name = "issue_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private Issue issue;
 
     public IssueExtJira() {
     }
@@ -83,7 +86,7 @@ public class IssueExtJira implements Serializable {
         this.id = id;
     }
 
-    public IssueExtJira(Integer id, String issueKey, String link, String title, String environment, String security, Date updated, String version, String component, String project, String projectKey, String status, String resolution, int issueId) {
+    public IssueExtJira(Integer id, String issueKey, String link, String title, String environment, String security, Date updated, String version, String component, String project, String projectKey, String status, String resolution, Issue issue) {
         this.id = id;
         this.issueKey = issueKey;
         this.link = link;
@@ -97,7 +100,7 @@ public class IssueExtJira implements Serializable {
         this.projectKey = projectKey;
         this.status = status;
         this.resolution = resolution;
-        this.issueId = issueId;
+        this.issue = issue;
     }
 
     public Integer getId() {
@@ -220,12 +223,12 @@ public class IssueExtJira implements Serializable {
         this.resolution = resolution;
     }
 
-    public int getIssueId() {
-        return issueId;
+    public Issue getIssue() {
+        return issue;
     }
 
-    public void setIssueId(int issueId) {
-        this.issueId = issueId;
+    public void setIssue(Issue issue) {
+        this.issue = issue;
     }
 
     @Override
